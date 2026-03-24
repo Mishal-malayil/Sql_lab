@@ -1,0 +1,13 @@
+DELIMITER $$
+
+CREATE TRIGGER trg_after_delete_employee
+AFTER DELETE ON Employee
+FOR EACH ROW
+BEGIN
+    INSERT INTO Emp_history
+    (emp_id, name, salary, department, Date_of_deletion)
+    VALUES
+    (OLD.emp_id, OLD.name, OLD.salary, OLD.department, NOW());
+END$$
+
+DELIMITER ;
